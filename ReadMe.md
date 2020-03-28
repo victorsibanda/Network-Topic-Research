@@ -1,6 +1,6 @@
 # Network Topic Research :taco: 
 
-**What is an IP?**
+## What is an IP?
 
 IP stands for Internet Protocol, And an IP address is a unique number which is linked to the online activity of that IP. 
 
@@ -9,7 +9,29 @@ Internet Protocol is a set of requirements for addressing and routing data on th
 * TCP is Transmission Control Protocol, which is a connection-oriented protocol that computers use to communicate over the internet. It is the main protocol for IP Networks. TCP provides error checking and guarantees delivery of data. 
 * UDP is User Datagram Protocol, it is a connectionless protocol that works like TCP without error-checing and recovery services. UDP sends datagrams to the recipient whether they recieve them or not. 
 
-**Submask**
+
+# IP addresses and Binary
+
+## What is Binary?
+Binary is the way a computer thinks. Using 1s and 0s, a computer makes "Decisions" using a series of millions of switches within a CPU. Each switch is either on (1) or off (0)
+
+Binary is a base 2 number system - generally represented as a byte of 8 binary bits to represent numbers up to positive or negative 255 (or up to negative 127 using a floating point number.)
+
+## IP Addresses.
+IP is short for Internet Protocol, and is a unique address for each device that utilises the internet in some way, including servers, phones, and smart fridges. 
+
+There are two different common versions of IP addresses - <b>IPv4</b> is the older standard, a 32-bit value of 4 bytes represented in denary/decimal numbers. Once these started to run out, they advanced to IPv6, originally in the mid 1990s which can go up to 128-bits. IPv6 also uses an alpha-numeric system, using hexadecimal (base 16) to represent it's characters.
+
+## Converting an IP address to binary.
+
+1- take an IP address (204.132.40.155)
+2- take each of the 4 numbers in the address (204, 132, 40, 155)
+3- convert each one in to binary
+
+       128  64  32  16  8  4  2  1 
+204     1    1   0   0  1  1  0  0
+
+## Submask
 
 A Subnet Mask (Submask) is a number that defines a range of IP addresses that can be used in a network. Submasks are used to designate subnetworks, or subnets, which are usually local networks which are connected to the internet. Systems within the same subnet can communicate directly with each other, yet external systems communicate via a router. 
 
