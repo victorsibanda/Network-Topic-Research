@@ -58,6 +58,115 @@ There are two different common versions of IP addresses - <b>IPv4</b> is the old
 
 A Subnet Mask (Submask) is a number that defines a range of IP addresses that can be used in a network. Submasks are used to designate subnetworks, or subnets, which are usually local networks which are connected to the internet. Systems within the same subnet can communicate directly with each other, yet external systems communicate via a router.
 
+
 A Subnet Mask,hides the network part of a system's IP address and only leaves the host as the machine identifier. An example of this is that for the IP addresses 10.0.1.203 and 10.0.1.234 , they would be in the same subnet, yet 10.0.2.203 would be apart of a different subnet.
 
 A common subnet mask for a class C IP address is 225.225.225.0 which allows for close to 256 unique hosts within a network. Larger networks would use the mask 225.225.0.0 which is class B. And the largest networks, class A would use the mask 225.0.0.0 .
+
+## Finding if 2 ips in the same network are using submasks
+Say if we had a mask of:
+```
+255.255.248.0
+```
+We will find that cidir (classless inner domain notation) will be...
+```
+255.255.248.0
+
+to find the 1st octet 255:
+128    64    32    16    8    4    2    1
+  1     1     1     1    1    1    1    1
+
+
+to find the 2nd octet 255:
+
+128    64    32    16    8    4    2    1
+  1     1     1     1    1    1    1    1
+
+to find the 3rd octet 248:
+
+128    64    32    16    8    4    2    1
+  1     1     1     1    1    0    0    0
+
+to find the 4th octet 0:
+
+128    64    32    16    8    4    2    1
+  0     0     0     0    0    0    0    0
+
+255 = 11111111
+255 = 11111111
+248 = 11111000
+0   = 00000000
+
+```
+altogether this is 11111111 11111111 11111000 00000000
+counting only the 1s will make it 21
+This is the cidir.
+
+255 usually means every binary value is turned on in the octet as you can see
+
+If we look at the ip 192.168.40.55
+
+then compare it with our submask 255.255.248.0
+
+what will be the network id?
+```
+As we know 255 is every value turned on so the first 2 octets stay the same
+
+193.168.
+
+Now we have to find the last two octets.
+
+40 in binary is 00101000
+so we compare it with the 248 submask octet
+
+40  = 00101000
+248 = 11111000
+
+We can see 40 is in the networks that are turned on so it will stay the same: 40
+192.168.40
+
+Now the last one:
+
+55 = 00110111
+0  = 00000000
+
+the 4th subnet octets are all off making them hosts so they will be 0
+Now we have all of the octets for the network id which is 192.168.40.55
+
+Now we need to add the cidir which is /21
+
+We found the network id which is: 192.168.40.0/21
+
+```
+using the submask 255.255.248.0 we found the network id of the ip address 192.168.40.55 which was:
+
+```
+192.168.40.0/21
+```
+What if we had the same submask but different ip
+if my ip was 192.168.45.55 what will my network id:
+
+```
+ip = 192.168.45.55
+
+our submask was 255.255.248.0
+
+we know that the cidir for this submask is /21
+
+we know that since the first 2 octets in the submask are all turned on makes the first 2 octets to be: 192.168
+
+lets find out what is 45
+
+45 = 00101101
+
+compare it to the 3rd octet
+45  = 0 0 1 0 1 | 1 0 1
+248 = 1 1 1 1 1 | 0 0 0
+
+We can see only the first 5 bits are turned for the 248 octet meaning that the everything after the first 5 octets are hosts. There fore this will become 40
+and we already know the last octet is 0
+
+the network id is also 192.168.40.0/21
+```
+
+We can find out if two ips in the same network have a subnet by looking at their network id.
